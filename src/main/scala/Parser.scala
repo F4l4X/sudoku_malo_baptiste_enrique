@@ -31,10 +31,21 @@ object Parser {
   }
 
   def printGrid(grid: Grid): Task[Unit] = {
-    val gridString = grid
-      .map(row => row.map(cell => cell.getOrElse(" ")).mkString(" "))
-      .mkString("\n")
-    ZIO.succeed(println(gridString))
+    val separator = "---------+---------+--------"
+
+    val gridString = grid.zipWithIndex.map { case (row, rowIndex) =>
+      val formattedRow = row.zipWithIndex.map { case (cell, colIndex) =>
+        val value = cell.getOrElse(" ")
+        if ((colIndex + 1) % 3 == 0 && colIndex != 8) s" $value |"
+        else s" $value "
+      }.mkString
+
+      if ((rowIndex + 1) % 3 == 0 && rowIndex != 8)
+        s"$formattedRow\n$separator\n"
+      else s"$formattedRow\n"
+    }.mkString
+
+    ZIO.succeed(println(s"$separator\n$gridString$separator"))
   }
 
 }
