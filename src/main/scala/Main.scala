@@ -1,6 +1,7 @@
 package sudoku
 
 import zio._
+import zio.json._
 
 object Main extends ZIOAppDefault {
 
@@ -55,5 +56,14 @@ object Main extends ZIOAppDefault {
       _ <- Console.printLine(s"You entered: $path")
       // Add your Sudoku solver logic here, utilizing ZIO and interacting with the ZIO Console
       json <- Parser.readFile(path)
+
+      grid = Parser.readGridFromFile(json)
+
+      // _ <- Console.printLine(s"Grid: ${grid.toString()}")
+      result <- grid match {
+        case Left(error) => Console.printLine(s"Error: ${error.getMessage()}")
+        case Right(grid) => Parser.printGrid(grid)
+      }
+
     } yield ()
 }
