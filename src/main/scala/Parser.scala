@@ -4,7 +4,7 @@ import zio._
 import zio.nio.file._
 import java.nio.charset.StandardCharsets
 import java.nio.file.{Files, Paths}
-import sudoku.Main.SudokuGrid.{Grid, emptyGrid}
+import sudoku.Main.SudokuGrid.{Grid}
 import io.circe._
 import io.circe.generic.auto._
 import io.circe.parser._

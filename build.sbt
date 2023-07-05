@@ -7,6 +7,7 @@ lazy val root = project
     name := "sudoku-solver",
     version := "1.0",
     scalaVersion := scala3Version,
+    javaOptions += "-Xmx2G",
     libraryDependencies ++= Seq(
       "dev.zio" %% "zio" % zioVersion,
       "dev.zio" %% "zio-nio" % "2.0.1",
